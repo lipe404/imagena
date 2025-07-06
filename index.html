@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Imagena</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Imagena</h1>
+                <p>Editor gratuito e completo para suas imagens</p>
+            </header>
+
+            <div class="toolbar">
+                <div class="toolbar-section">
+                    <h3>📁 Arquivo</h3>
+                    <input type="file" id="fileInput" accept="image/*"
+                        style="display: none;">
+                    <button id="uploadBtn" class="btn">Carregar Imagem</button>
+                    <button id="pasteBtn" class="btn">Colar (Ctrl+V)</button>
+                    <button id="downloadBtn" class="btn"
+                        disabled>Baixar</button>
+                </div>
+
+                <div class="toolbar-section">
+                    <h3>✂️ Edição</h3>
+                    <button id="cropBtn" class="btn">Recortar</button>
+                    <button id="rotateBtn" class="btn">Girar 90°</button>
+                    <button id="flipHBtn" class="btn">Espelhar H</button>
+                    <button id="flipVBtn" class="btn">Espelhar V</button>
+                    <button id="resetBtn" class="btn">Resetar</button>
+                </div>
+
+                <div class="toolbar-section">
+                    <h3>🎨 Filtros</h3>
+                    <div class="filter-controls">
+                        <label>Brilho: <input type="range" id="brightness"
+                                min="0" max="200" value="100"></label>
+                        <label>Contraste: <input type="range" id="contrast"
+                                min="0" max="200" value="100"></label>
+                        <label>Saturação: <input type="range" id="saturation"
+                                min="0" max="200" value="100"></label>
+                        <label>Matiz: <input type="range" id="hue" min="0"
+                                max="360" value="0"></label>
+                        <label>Desfoque: <input type="range" id="blur" min="0"
+                                max="10" value="0"></label>
+                    </div>
+                    <div class="preset-filters">
+                        <button class="filter-btn"
+                            data-filter="grayscale">P&B</button>
+                        <button class="filter-btn"
+                            data-filter="sepia">Sépia</button>
+                        <button class="filter-btn"
+                            data-filter="vintage">Vintage</button>
+                        <button class="filter-btn"
+                            data-filter="cold">Frio</button>
+                        <button class="filter-btn"
+                            data-filter="warm">Quente</button>
+                    </div>
+                </div>
+
+                <div class="toolbar-section">
+                    <h3>💾 Formato</h3>
+                    <select id="formatSelect">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                    <label>Qualidade: <input type="range" id="quality" min="10"
+                            max="100" value="90"></label>
+                </div>
+            </div>
+
+            <div class="editor-area">
+                <div class="canvas-container">
+                    <canvas id="canvas"></canvas>
+                    <div id="cropOverlay" class="crop-overlay"
+                        style="display: none;">
+                        <div class="crop-box">
+                            <div class="crop-handle nw"></div>
+                            <div class="crop-handle ne"></div>
+                            <div class="crop-handle sw"></div>
+                            <div class="crop-handle se"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-content">
+                        <h3>📤 Arraste uma imagem aqui</h3>
+                        <p>ou clique em "Carregar Imagem" ou use Ctrl+V para
+                            colar</p>
+                        <p>Formatos suportados: PNG, JPEG, WebP, GIF</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div id="imageInfo" class="image-info" style="display: none;">
+                    <span id="imageDimensions"></span>
+                    <span id="imageSize"></span>
+                    <span id="imageFormat"></span>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
