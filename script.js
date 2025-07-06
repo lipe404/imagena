@@ -1007,9 +1007,42 @@ class ImageEditor {
   }
 }
 
+// Função para gerenciar as abas de filtros
+function initializeTabs() {
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabPanels = document.querySelectorAll(".tab-panel");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetTab = button.dataset.tab;
+
+      // Remove active de todos os botões e painéis
+      tabButtons.forEach((btn) => btn.classList.remove("active"));
+      tabPanels.forEach((panel) => panel.classList.remove("active"));
+
+      // Adiciona active ao botão e painel clicados
+      button.classList.add("active");
+      document.getElementById(targetTab).classList.add("active");
+    });
+  });
+}
+
+// Função para minimizar/expandir painel inferior
+function initializePanelToggle() {
+  const panelToggle = document.getElementById("panelToggle");
+  const bottomPanel = document.querySelector(".bottom-panel");
+
+  panelToggle.addEventListener("click", () => {
+    bottomPanel.classList.toggle("minimized");
+    panelToggle.classList.toggle("minimized");
+  });
+}
+
 // Inicializar o editor quando a página carregar
 document.addEventListener("DOMContentLoaded", () => {
   new ImageEditor();
+  initializeTabs();
+  initializePanelToggle();
 });
 
 // Atalhos de teclado expandidos

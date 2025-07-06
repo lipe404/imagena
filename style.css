@@ -1,7 +1,5 @@
-/* Importarndo biblioteca do Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-/* Configuração de variáveis CSS */
 :root {
   --primary-bg: #0a0a0a;
   --secondary-bg: #1a1a1a;
@@ -24,21 +22,26 @@
   --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
 }
 
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Base da página e tipografia */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   background: var(--primary-bg);
   color: var(--primary-text);
+  /* Alterado: permite que a página role se o conteúdo exceder 100vh */
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-y: auto; /* Permite rolagem vertical apenas quando necessário */
+  scroll-behavior: smooth; /* Rolagem suave (opcional, para navegação via âncora) */
 }
 
+/* Efeito de fundo sutil */
 body::before {
   content: "";
   position: fixed;
@@ -65,178 +68,217 @@ body::before {
   z-index: -1;
 }
 
-.container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 20px;
+/* Contêiner principal da aplicação */
+.app-container {
+  /* Não precisa mais de height: 100vh se o body já é min-height */
+  min-height: 100vh; /* Garante que o contêiner principal ocupe no mínimo 100% da viewport */
+  display: flex;
+  flex-direction: column;
 }
 
+/* Header compacto */
 .header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 30px 0;
+  background: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-medium);
+  z-index: 100; /* Garante que o header fique acima de outros elementos */
+  flex-shrink: 0; /* Impede que o header encolha */
 }
 
 .logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 12px;
 }
 
 .logo i {
-  font-size: 2.5em;
+  font-size: 1.8em;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block; /* Para melhor controle do ícone */
 }
 
 .header h1 {
-  font-size: 3.5em;
+  font-size: 1.8em;
   font-weight: 700;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
+  white-space: nowrap; /* Evita que o título quebre em várias linhas */
 }
 
-.header p {
-  font-size: 1.2em;
-  color: var(--secondary-text);
-  font-weight: 300;
-}
-
-.toolbar {
-  background: var(--secondary-bg);
-  border-radius: 20px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: var(--shadow-dark);
-  border: 1px solid var(--border-color);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
-
-.toolbar-section {
-  background: var(--tertiary-bg);
-  padding: 20px;
-  border-radius: 15px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-.toolbar-section:hover {
-  border-color: var(--accent-color);
-  box-shadow: var(--shadow-medium);
-}
-
-.toolbar-section h3 {
-  margin-bottom: 20px;
-  color: var(--primary-text);
-  font-size: 1.1em;
-  font-weight: 600;
+.header-controls {
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-.toolbar-section h3 i {
-  color: var(--accent-color);
-}
-
-.btn {
-  background: var(--accent-bg);
-  color: var(--primary-text);
-  border: 1px solid var(--border-color);
-  padding: 12px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 4px;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
+/* Layout principal: sidebars + área de edição */
+.main-content {
+  flex: 1; /* Permite que ocupe todo o espaço vertical disponível */
+  display: flex;
+  min-height: 0; /* Importante para que os filhos flexbox possam encolher corretamente */
+  /* Adicionado: Garante que os filhos flex do main-content não transbordem horizontalmente */
   overflow: hidden;
 }
 
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.5s ease;
-}
-
-.btn:hover::before {
-  left: 100%;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-  border-color: var(--accent-color);
-}
-
-.btn.primary {
-  background: var(--gradient-primary);
-  border-color: var(--accent-color);
-}
-
-.btn.secondary {
-  background: var(--gradient-secondary);
-  border-color: var(--secondary-accent);
-}
-
-.btn.success {
-  background: var(--success-color);
-  border-color: var(--success-color);
-}
-
-.btn.danger {
-  background: var(--danger-color);
-  border-color: var(--danger-color);
-}
-
-.btn:disabled {
-  background: var(--accent-bg);
-  color: var(--muted-text);
-  cursor: not-allowed;
-  transform: none;
-  border-color: var(--border-color);
-}
-
-.btn.icon-btn {
-  width: 45px;
-  height: 45px;
-  padding: 0;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.history-controls {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.filter-controls {
+.sidebar-left,
+.sidebar-right {
+  width: 280px; /* Largura fixa para desktop */
+  flex-shrink: 0; /* Impede que o sidebar encolha em telas maiores */
+  background: var(--secondary-bg);
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+  overflow-y: auto; /* Permite rolagem vertical dentro do sidebar se o conteúdo exceder */
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-right {
+  border-right: none;
+  border-left: 1px solid var(--border-color);
+}
+
+.editor-area {
+  flex: 1; /* Ocupa todo o espaço restante horizontalmente */
+  position: relative;
+  background: var(--tertiary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0; /* Importante para que a imagem dentro possa encolher */
+  overflow: hidden; /* Garante que o canvas não transborde a área */
+}
+
+.canvas-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas {
+  max-width: 100%;
+  max-height: 100%;
+  /* Adicionado: Garante que a imagem/canvas se ajuste sem distorção se necessário */
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: var(--shadow-dark);
+  cursor: crosshair;
+}
+
+/* Painel inferior */
+.bottom-panel {
+  background: var(--secondary-bg);
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  transition: transform 0.3s ease;
+  flex-shrink: 0; /* Impede que o painel inferior encolha */
+}
+
+.bottom-panel.minimized {
+  transform: translateY(
+    calc(100% - 50px)
+  ); /* Mostra apenas os 50px superiores */
+}
+
+.panel-toggle {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 25px;
+  border-radius: 25px 25px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  outline: none; /* Remove o contorno padrão de foco */
+}
+
+.panel-toggle:hover {
+  background: var(--secondary-accent);
+}
+
+.panel-toggle:focus {
+  box-shadow: 0 0 0 3px var(--secondary-accent); /* Efeito de foco para acessibilidade */
+}
+
+.panel-toggle.minimized i {
+  transform: rotate(180deg);
+}
+
+.filter-tabs {
+  display: flex;
+  background: var(--tertiary-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  color: var(--secondary-text);
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none; /* Remove o contorno padrão de foco */
+}
+
+.tab-btn:hover {
+  background: var(--accent-bg);
+  color: var(--primary-text);
+}
+
+.tab-btn:focus {
+  box-shadow: inset 0 0 0 2px var(--secondary-accent); /* Efeito de foco para acessibilidade */
+}
+
+.tab-btn.active {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.filter-content {
+  padding: 20px;
+  max-height: 200px; /* Altura máxima do conteúdo dos filtros */
+  overflow-y: auto; /* Permite rolagem dentro do conteúdo dos filtros */
+  flex-shrink: 0; /* Impede que o conteúdo dos filtros encolha desnecessariamente */
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
 }
 
@@ -266,7 +308,8 @@ body::before {
   font-weight: 600;
 }
 
-.filter-controls input[type="range"] {
+/* Estilo do input range */
+.filter-group input[type="range"] {
   flex: 1;
   height: 6px;
   border-radius: 3px;
@@ -275,41 +318,39 @@ body::before {
   -webkit-appearance: none;
   appearance: none;
   margin: 0 15px;
-  position: relative;
+  cursor: grab; /* Indica que é arrastável */
 }
 
-.filter-controls input[type="range"]::-webkit-slider-track {
-  height: 6px;
-  border-radius: 3px;
-  background: var(--accent-bg);
+.filter-group input[type="range"]:active {
+  cursor: grabbing;
 }
 
-.filter-controls input[type="range"]::-webkit-slider-thumb {
+.filter-group input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--gradient-primary);
   cursor: pointer;
   box-shadow: var(--shadow-light);
   border: 2px solid var(--primary-bg);
+  transition: all 0.2s ease;
 }
 
-.filter-controls input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  cursor: pointer;
-  border: 2px solid var(--primary-bg);
+.filter-group input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
 }
 
+.filter-group input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--secondary-accent); /* Efeito de foco para acessibilidade */
+}
+
+/* Filtros predefinidos */
 .preset-filters {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-top: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
 }
 
 .filter-btn {
@@ -325,8 +366,10 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
   gap: 5px;
   text-align: center;
+  outline: none; /* Remove o contorno padrão de foco */
 }
 
 .filter-btn i {
@@ -340,73 +383,195 @@ body::before {
   transform: translateY(-2px);
 }
 
+.filter-btn:focus {
+  box-shadow: 0 0 0 3px var(--secondary-accent); /* Efeito de foco para acessibilidade */
+  border-color: var(--accent-color);
+}
+
 .filter-btn.active {
   background: var(--gradient-primary);
   color: var(--primary-text);
   border-color: var(--accent-color);
 }
 
+/* Seções da barra de ferramentas (sidebars) */
+.toolbar-section {
+  background: var(--tertiary-bg);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.toolbar-section h3 {
+  margin-bottom: 15px;
+  color: var(--primary-text);
+  font-size: 1em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-section h3 i {
+  color: var(--accent-color);
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* Botões gerais */
+.btn {
+  background: var(--accent-bg);
+  color: var(--primary-text);
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  outline: none; /* Remove o contorno padrão de foco */
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--accent-color);
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 3px var(--secondary-accent); /* Efeito de foco para acessibilidade */
+  border-color: var(--accent-color);
+}
+
+.btn.primary {
+  background: var(--gradient-primary);
+  border-color: var(--accent-color);
+}
+
+.btn.secondary {
+  background: var(--gradient-secondary);
+  border-color: var(--secondary-accent);
+}
+
+.btn.success {
+  background: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn.danger {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn:disabled {
+  background: var(--accent-bg);
+  color: var(--muted-text);
+  cursor: not-allowed;
+  transform: none;
+  border-color: var(--border-color);
+  box-shadow: none; /* Remove sombra e foco quando desabilitado */
+}
+
+.btn.icon-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 8px;
+}
+
 .select-input {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 8px;
   border: 1px solid var(--border-color);
   background: var(--accent-bg);
   color: var(--primary-text);
-  font-size: 14px;
-  margin-bottom: 15px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  -webkit-appearance: none; /* Remove o estilo padrão do select em navegadores webkit */
+  -moz-appearance: none; /* Remove o estilo padrão do select em navegadores mozilla */
+  appearance: none; /* Remove o estilo padrão do select */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>'); /* Ícone de seta para baixo */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+  outline: none;
 }
 
-.export-controls {
+.select-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--secondary-accent);
+}
+
+/* Informações da imagem */
+.image-info {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
-.editor-area {
-  position: relative;
-  background: var(--secondary-bg);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: var(--shadow-dark);
-  border: 1px solid var(--border-color);
-  min-height: 600px;
-}
-
-.canvas-container {
-  position: relative;
+.info-item {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 500px;
-  border-radius: 15px;
-  background: var(--tertiary-bg);
-  border: 2px dashed var(--border-color);
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--accent-bg);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--secondary-text);
 }
 
-#canvas {
-  max-width: 100%;
-  max-height: 700px;
-  border-radius: 15px;
-  box-shadow: var(--shadow-medium);
-  cursor: crosshair;
+.info-item i {
+  color: var(--accent-color);
 }
 
+/* Drop zone */
 .drop-zone {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
   border: 3px dashed var(--accent-color);
-  border-radius: 20px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 107, 53, 0.05);
   transition: all 0.3s ease;
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Efeito de desfoque no fundo */
   backdrop-filter: blur(10px);
+  z-index: 5; /* Garante que fique acima do canvas */
 }
 
 .drop-zone.dragover {
@@ -425,48 +590,51 @@ body::before {
 }
 
 .drop-icon {
-  font-size: 4em;
-  margin-bottom: 20px;
+  font-size: 3em;
+  margin-bottom: 15px;
   color: var(--accent-color);
 }
 
 .drop-content h3 {
-  font-size: 1.8em;
-  margin-bottom: 15px;
+  font-size: 1.5em;
+  margin-bottom: 10px;
   color: var(--primary-text);
   font-weight: 600;
 }
 
 .drop-content p {
-  margin-bottom: 20px;
-  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-size: 1em;
 }
 
 kbd {
   background: var(--accent-bg);
   border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border-radius: 4px;
   padding: 2px 6px;
   font-size: 0.9em;
   color: var(--accent-color);
+  white-space: nowrap; /* Evita que o texto da tecla quebre */
 }
 
 .supported-formats {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap; /* Permite que os formatos quebrem a linha em telas pequenas */
 }
 
 .supported-formats span {
   background: var(--accent-bg);
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 11px;
   color: var(--secondary-text);
   border: 1px solid var(--border-color);
 }
 
+/* Crop overlay */
 .crop-overlay {
   position: absolute;
   top: 0;
@@ -475,7 +643,8 @@ kbd {
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   cursor: crosshair;
-  border-radius: 15px;
+  border-radius: 10px;
+  z-index: 10; /* Garante que fique acima da imagem, mas abaixo do drop-zone */
 }
 
 .crop-selection {
@@ -484,7 +653,7 @@ kbd {
   background: rgba(255, 107, 53, 0.1);
   min-width: 50px;
   min-height: 50px;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); /* Efeito de máscara */
 }
 
 .crop-handle {
@@ -495,6 +664,7 @@ kbd {
   border: 2px solid var(--primary-bg);
   border-radius: 50%;
   box-shadow: var(--shadow-light);
+  z-index: 1; /* Garante que as alças fiquem sobre a seleção de corte */
 }
 
 .crop-handle.nw {
@@ -552,66 +722,77 @@ kbd {
   border-radius: 5px;
   font-size: 12px;
   border: 1px solid var(--border-color);
+  white-space: nowrap; /* Evita que as informações de corte quebrem a linha */
 }
 
-.info-panel {
-  margin-top: 30px;
-  background: var(--secondary-bg);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: var(--shadow-medium);
-  border: 1px solid var(--border-color);
-}
-
-.image-info {
-  display: flex;
-  gap: 25px;
-  font-size: 14px;
-  color: var(--secondary-text);
-  flex-wrap: wrap;
-}
-
-.info-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 15px;
-  background: var(--tertiary-bg);
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-}
-
-.info-group i {
-  color: var(--accent-color);
+/* Responsividade */
+@media (max-width: 1200px) {
+  .sidebar-left,
+  .sidebar-right {
+    width: 250px; /* Reduz a largura dos sidebars em telas médias */
+  }
 }
 
 @media (max-width: 768px) {
-  .toolbar {
-    grid-template-columns: 1fr;
+  .main-content {
+    flex-direction: column; /* Pilha os sidebars e a área de edição */
+    overflow-y: auto; /* Permite rolagem vertical para o conteúdo principal empilhado */
   }
 
-  .preset-filters {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  .sidebar-left,
+  .sidebar-right {
+    width: 100%; /* Sidebars ocupam a largura total */
+    height: auto; /* Altura automática, mas com limite */
+    max-height: 200px; /* Limita a altura para que não dominem a tela */
+    border-right: none; /* Remove borda lateral */
+    border-left: none; /* Remove borda lateral */
+    border-bottom: 1px solid var(--border-color); /* Adiciona borda para separar seções */
+    padding-bottom: 20px; /* Garante que o padding seja consistente */
   }
 
-  .image-info {
-    flex-direction: column;
+  .sidebar-right {
+    border-top: 1px solid var(--border-color); /* Adiciona borda superior para separar do sidebar-left */
+  }
+
+  .editor-area {
+    width: 100%; /* Ocupa a largura total */
+    height: 60vh; /* Altura para garantir que o canvas seja visível */
+    min-height: 250px; /* Altura mínima para a área do editor */
+  }
+
+  .header {
+    flex-direction: column; /* Header empilha o logo e os controles */
     gap: 15px;
   }
 
-  .header h1 {
-    font-size: 2.5em;
+  .header-controls {
+    width: 100%;
+    justify-content: center;
   }
 
-  .history-controls {
-    justify-content: center;
+  .filters-grid {
+    grid-template-columns: 1fr; /* Filtros em coluna única */
+  }
+
+  .preset-filters {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(80px, 1fr)
+    ); /* Botões de filtro se ajustam */
+  }
+
+  .bottom-panel.minimized {
+    transform: translateY(
+      calc(100% - 60px)
+    ); /* Ajuste para o tamanho do toggle/painel em mobile */
   }
 }
 
+/* Animações */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -619,71 +800,27 @@ kbd {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.toolbar-section,
+.tab-panel {
+  animation: fadeIn 0.4s ease-out;
 }
 
-.toolbar,
-.editor-area,
-.info-panel {
-  animation: fadeIn 0.8s ease-out;
-}
-
-.toolbar-section {
-  animation: slideIn 0.6s ease-out;
-}
-
+/* Estilo da barra de rolagem customizada */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px; /* Largura da barra de rolagem vertical */
+  height: 8px; /* Altura da barra de rolagem horizontal */
 }
 
 ::-webkit-scrollbar-track {
   background: var(--secondary-bg);
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--gradient-primary);
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-color);
-}
-
-.loading {
-  position: relative;
-  overflow: hidden;
-}
-
-.loading::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 107, 53, 0.2),
-    transparent
-  );
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
 }
