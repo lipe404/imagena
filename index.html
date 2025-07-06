@@ -3,73 +3,200 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Imagena</title>
+        <title>Imagena Pro</title>
         <link rel="stylesheet" href="style.css">
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet">
     </head>
     <body>
         <div class="container">
             <header class="header">
-                <h1>Imagena</h1>
-                <p>Editor gratuito e completo para suas imagens</p>
+                <div class="logo">
+                    <i class="fas fa-magic"></i>
+                    <h1>Imagena Pro</h1>
+                </div>
             </header>
 
             <div class="toolbar">
                 <div class="toolbar-section">
-                    <h3>📁 Arquivo</h3>
+                    <h3><i class="fas fa-folder-open"></i> Arquivo</h3>
                     <input type="file" id="fileInput" accept="image/*"
                         style="display: none;">
-                    <button id="uploadBtn" class="btn">Carregar Imagem</button>
-                    <button id="pasteBtn" class="btn">Colar (Ctrl+V)</button>
-                    <button id="downloadBtn" class="btn"
-                        disabled>Baixar</button>
+                    <button id="uploadBtn" class="btn primary">
+                        <i class="fas fa-upload"></i> Carregar
+                    </button>
+                    <button id="pasteBtn" class="btn secondary">
+                        <i class="fas fa-paste"></i> Colar
+                    </button>
+                    <button id="downloadBtn" class="btn success" disabled>
+                        <i class="fas fa-download"></i> Baixar
+                    </button>
                 </div>
 
                 <div class="toolbar-section">
-                    <h3>✂️ Edição</h3>
-                    <button id="cropBtn" class="btn">Recortar</button>
-                    <button id="rotateBtn" class="btn">Girar 90°</button>
-                    <button id="flipHBtn" class="btn">Espelhar H</button>
-                    <button id="flipVBtn" class="btn">Espelhar V</button>
-                    <button id="resetBtn" class="btn">Resetar</button>
+                    <h3><i class="fas fa-edit"></i> Edição</h3>
+                    <div class="history-controls">
+                        <button id="undoBtn" class="btn icon-btn" disabled
+                            title="Desfazer">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button id="redoBtn" class="btn icon-btn" disabled
+                            title="Refazer">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    <button id="cropBtn" class="btn">
+                        <i class="fas fa-crop"></i> Recortar
+                    </button>
+                    <button id="rotateBtn" class="btn">
+                        <i class="fas fa-redo-alt"></i> Girar 90°
+                    </button>
+                    <button id="flipHBtn" class="btn">
+                        <i class="fas fa-arrows-alt-h"></i> Espelhar H
+                    </button>
+                    <button id="flipVBtn" class="btn">
+                        <i class="fas fa-arrows-alt-v"></i> Espelhar V
+                    </button>
+                    <button id="resetBtn" class="btn danger">
+                        <i class="fas fa-refresh"></i> Resetar
+                    </button>
                 </div>
 
                 <div class="toolbar-section">
-                    <h3>🎨 Filtros</h3>
+                    <h3><i class="fas fa-palette"></i> Filtros Básicos</h3>
                     <div class="filter-controls">
-                        <label>Brilho: <input type="range" id="brightness"
-                                min="0" max="200" value="100"></label>
-                        <label>Contraste: <input type="range" id="contrast"
-                                min="0" max="200" value="100"></label>
-                        <label>Saturação: <input type="range" id="saturation"
-                                min="0" max="200" value="100"></label>
-                        <label>Matiz: <input type="range" id="hue" min="0"
-                                max="360" value="0"></label>
-                        <label>Desfoque: <input type="range" id="blur" min="0"
-                                max="10" value="0"></label>
-                    </div>
-                    <div class="preset-filters">
-                        <button class="filter-btn"
-                            data-filter="grayscale">P&B</button>
-                        <button class="filter-btn"
-                            data-filter="sepia">Sépia</button>
-                        <button class="filter-btn"
-                            data-filter="vintage">Vintage</button>
-                        <button class="filter-btn"
-                            data-filter="cold">Frio</button>
-                        <button class="filter-btn"
-                            data-filter="warm">Quente</button>
+                        <div class="filter-group">
+                            <label>
+                                <span>Brilho</span>
+                                <input type="range" id="brightness" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Contraste</span>
+                                <input type="range" id="contrast" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Saturação</span>
+                                <input type="range" id="saturation" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Matiz</span>
+                                <input type="range" id="hue" min="0" max="360"
+                                    value="0">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Desfoque</span>
+                                <input type="range" id="blur" min="0" max="10"
+                                    value="0">
+                            </label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="toolbar-section">
-                    <h3>💾 Formato</h3>
-                    <select id="formatSelect">
-                        <option value="png">PNG</option>
-                        <option value="jpeg">JPEG</option>
-                        <option value="webp">WebP</option>
-                    </select>
-                    <label>Qualidade: <input type="range" id="quality" min="10"
-                            max="100" value="90"></label>
+                    <h3><i class="fas fa-adjust"></i> Filtros Avançados</h3>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label>
+                                <span>Exposição</span>
+                                <input type="range" id="exposure" min="50"
+                                    max="150" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Sombras</span>
+                                <input type="range" id="shadows" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Realces</span>
+                                <input type="range" id="highlights" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Vibrance</span>
+                                <input type="range" id="vibrance" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                        <div class="filter-group">
+                            <label>
+                                <span>Nitidez</span>
+                                <input type="range" id="sharpness" min="0"
+                                    max="200" value="100">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toolbar-section">
+                    <h3><i class="fas fa-star"></i> Filtros Predefinidos</h3>
+                    <div class="preset-filters">
+                        <button class="filter-btn" data-filter="none">
+                            <i class="fas fa-ban"></i> Original
+                        </button>
+                        <button class="filter-btn" data-filter="grayscale">
+                            <i class="fas fa-adjust"></i> P&B
+                        </button>
+                        <button class="filter-btn" data-filter="sepia">
+                            <i class="fas fa-leaf"></i> Sépia
+                        </button>
+                        <button class="filter-btn" data-filter="vintage">
+                            <i class="fas fa-camera-retro"></i> Vintage
+                        </button>
+                        <button class="filter-btn" data-filter="cold">
+                            <i class="fas fa-snowflake"></i> Frio
+                        </button>
+                        <button class="filter-btn" data-filter="warm">
+                            <i class="fas fa-sun"></i> Quente
+                        </button>
+                        <button class="filter-btn" data-filter="dramatic">
+                            <i class="fas fa-bolt"></i> Dramático
+                        </button>
+                        <button class="filter-btn" data-filter="noir">
+                            <i class="fas fa-moon"></i> Noir
+                        </button>
+                        <button class="filter-btn" data-filter="cyberpunk">
+                            <i class="fas fa-robot"></i> Cyberpunk
+                        </button>
+                        <button class="filter-btn" data-filter="golden">
+                            <i class="fas fa-crown"></i> Dourado
+                        </button>
+                    </div>
+                </div>
+
+                <div class="toolbar-section">
+                    <h3><i class="fas fa-save"></i> Exportar</h3>
+                    <div class="export-controls">
+                        <select id="formatSelect" title="Selecionar formato" class="select-input">
+                            <option value="png">PNG (Transparência)</option>
+                            <option value="jpeg">JPEG (Menor tamanho)</option>
+                            <option value="webp">WebP (Moderno)</option>
+                        </select>
+                        <div class="filter-group">
+                            <label>
+                                <span>Qualidade</span>
+                                <input type="range" id="quality" min="10"
+                                    max="100" value="90">
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -78,30 +205,58 @@
                     <canvas id="canvas"></canvas>
                     <div id="cropOverlay" class="crop-overlay"
                         style="display: none;">
-                        <div class="crop-box">
+                        <div class="crop-selection">
                             <div class="crop-handle nw"></div>
                             <div class="crop-handle ne"></div>
                             <div class="crop-handle sw"></div>
                             <div class="crop-handle se"></div>
+                            <div class="crop-handle n"></div>
+                            <div class="crop-handle s"></div>
+                            <div class="crop-handle e"></div>
+                            <div class="crop-handle w"></div>
+                            <div class="crop-info">
+                                <span id="cropDimensions">0 × 0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="drop-zone" id="dropZone">
                     <div class="drop-content">
-                        <h3>📤 Arraste uma imagem aqui</h3>
-                        <p>ou clique em "Carregar Imagem" ou use Ctrl+V para
+                        <div class="drop-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Arraste uma imagem aqui</h3>
+                        <p>ou clique em "Carregar" ou use <kbd>Ctrl+V</kbd> para
                             colar</p>
-                        <p>Formatos suportados: PNG, JPEG, WebP, GIF</p>
+                        <div class="supported-formats">
+                            <span>PNG</span>
+                            <span>JPEG</span>
+                            <span>WebP</span>
+                            <span>GIF</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="info-panel">
                 <div id="imageInfo" class="image-info" style="display: none;">
-                    <span id="imageDimensions"></span>
-                    <span id="imageSize"></span>
-                    <span id="imageFormat"></span>
+                    <div class="info-group">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span id="imageDimensions"></span>
+                    </div>
+                    <div class="info-group">
+                        <i class="fas fa-weight-hanging"></i>
+                        <span id="imageSize"></span>
+                    </div>
+                    <div class="info-group">
+                        <i class="fas fa-file-image"></i>
+                        <span id="imageFormat"></span>
+                    </div>
+                    <div class="info-group">
+                        <i class="fas fa-history"></i>
+                        <span id="historyCount">0 ações</span>
+                    </div>
                 </div>
             </div>
         </div>
